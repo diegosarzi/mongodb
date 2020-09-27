@@ -1,0 +1,67 @@
+# mongod para inicar server
+
+# mongo para acessar client:
+- comparação:
+= // $eq
+> // $gt
+>= // $gte
+< // $lt
+<= // $lte
+!= // $ne
+
+AND
+{sexo:{%eq: 'M'}, idade: {$gt:30}}
+OR
+{ $or:[{nome:{$eq:'Maria'}, {nome:{$eq: 'José'}}}] }
+ex:
+db.alunos.find( { $or: [ {nome:{$eq:'Maria'}}, {nome:{$eq:'José'}} ]}).pretty()
+
+- comandos:
+show dbs; // mostrar bancos
+use nome_db; // entrar no banco ou cria-lo
+db.nometabela.save({Nome:"Teste"}); // para criar collection (tabela) e inserir conteudo
+db.dropDatabase(); // apagar database * lembrar de usar o use antes para selecionar
+db.createCollection("alunos"); // criar colection
+db.getCollectionNames(); // mostrar collections
+db.alunos.drop(); // remover collection
+db.alunos.save({nome: 'José', idade: 30, sexo: 'M', cpf: '341.688.854-88', rg: '43.333.333-0', matricula: 'abcd123'}) // criar um documento na collection ( inserção )
+db.alunos.findOne() // busca o primeiro registro
+db.alunos.find() // retorna todos documentos
+db.alunos.find().pretty() // melhora visualizacao
+db.alunos.find({nome: {$eq:"José"}}) // pesquisa só pelo nome José
+db.alunos.find({idade: {$lt: 30}}) // idade menor que 30
+
+- atualização:
+update()
+save()
+
+update(
+	{parametros para atualizacao},
+	{$set},
+	{multi:false} // se deixar true vai atualizar todos que seguem parametro de atualizacao, caso false ele atualiza apenas o primerio
+)
+
+ex:
+
+> db.alunos.update(
+... {
+... nome: 'João'
+... },
+... {
+... $set: {nome: 'Matheus', idade: 33}
+... }
+... )
+
+
+// subistitui ou inclui se não encontrar
+save(
+	_id: xxxxx
+)
+
+- removes
+
+remove({criterio de exclusão}) // somente um
+
+ex:
+remove({nome: 'Maria'})
+remove({idade: '$eq:30'})
